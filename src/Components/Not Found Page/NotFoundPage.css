@@ -1,0 +1,7 @@
+@import url('../../index.css');
+
+.NotFoundContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

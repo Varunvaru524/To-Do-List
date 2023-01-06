@@ -2,7 +2,7 @@ const activities = [
   {
     _id: "5b21ca3eeb7f6fbccd471815",
     title: "Terminator",
-    timeStamp: 6,
+    timeStamp: '7/1/2023 2:50:49 am',
     description: 2.5,
     dueDate:'date',
     tags:[],
@@ -11,7 +11,7 @@ const activities = [
   {
     _id: "5b21ca3eeb7f6fbccd471816",
     title: "Die Hard",
-    timeStamp: 5,
+    timeStamp: '23/12/2022 3:50:49 pm',
     description: 2.5,
     dueDate:'date',
     tags:[],
@@ -20,7 +20,7 @@ const activities = [
   {
     _id: "5b21ca3eeb7f6fbccd471817",
     title: "Get Out",
-    timeStamp: 8,
+    timeStamp: '3/6/2021 1:50:49 pm',
     description: 3.5,
     dueDate:'date',
     tags:[],
@@ -29,7 +29,7 @@ const activities = [
   {
     _id: "5b21ca3eeb7f6fbccd471819",
     title: "Trip to Italy",
-    timeStamp: 7,
+    timeStamp: '17/10/2022 12:50:49 am',
     description: 3.5,
     dueDate:'date',
     tags:[],
@@ -38,7 +38,7 @@ const activities = [
   {
     _id: "5b21ca3eeb7f6fbccd47181a",
     title: "Airplane",
-    timeStamp: 7,
+    timeStamp: '15/6/2022 10:03:49 am',
     description: 3.5,
     dueDate:'date',
     tags:[],
@@ -47,7 +47,7 @@ const activities = [
   {
     _id: "5b21ca3eeb7f6fbccd47181b",
     title: "Wedding Crashers",
-    timeStamp: 7,
+    timeStamp: '02/3/2022 2:53:49 am',
     description: 3.5,
     dueDate:'date',
     tags:[],
@@ -56,7 +56,7 @@ const activities = [
   {
     _id: "5b21ca3eeb7f6fbccd47181e",
     title: "Gone Girl",
-    timeStamp: 7,
+    timeStamp: '30/8/2021 07:53:49 am',
     description: 4.5,
     dueDate:'date',
     tags:[],
@@ -65,7 +65,7 @@ const activities = [
   {
     _id: "5b21ca3eeb7f6fbccd47181f",
     title: "The Sixth Sense",
-    timeStamp: 4,
+    timeStamp: '05/5/2022 5:34:49 pm',
     description: 3.5,
     dueDate:'date',
     tags:[],
@@ -74,7 +74,7 @@ const activities = [
   {
     _id: "5b21ca3eeb7f6fbccd471821",
     title: "The Avengers",
-    timeStamp: 7,
+    timeStamp: '4/2/2022 6:53:49 pm',
     description: 3.5,
     dueDate:'date',
     tags:[],

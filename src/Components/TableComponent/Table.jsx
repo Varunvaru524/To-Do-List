@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
-import { getActivities } from "../Assets/BackendService";
 import {Table} from 'antd'
+import {Link} from 'react-router-dom'
+import { getActivities } from "../../Assets/BackendService";
+
+// let date = new Date()
+
 
 class TheTable extends Component {
     state={
@@ -82,7 +86,7 @@ class TheTable extends Component {
         let updatedTableData = backendData.map(data=>{
             return {
                 time:data.timeStamp,
-                title:data.title,
+                title:<Link to={'/table'+'/'+data._id}>{data.title}</Link>,
                 status:data.status,
                 description:data.description,
                 dueDate:data.dueDate,
@@ -109,3 +113,6 @@ class TheTable extends Component {
 }
  
 export default TheTable;
+
+
+// console.log(date.getDate().toString()+'/'+date.getMonth()+'/'+date.getFullYear()+' '+date.toLocaleTimeString());
