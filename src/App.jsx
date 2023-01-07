@@ -10,7 +10,6 @@ class App extends Component {
             <React.Fragment>
                 <Routes>
                     <Route path='/table' element={<TheTable/>}/>
-                    <Route path='/table/new' element = {<ActivitySfc/>}/>
                     <Route path='/table/:id' element = {<ActivitySfc/>}/>
                     <Route path='*' element = {<NotFoundPage/>}/>
                     <Route path='/' element={<Navigate to='/table'/>}/>

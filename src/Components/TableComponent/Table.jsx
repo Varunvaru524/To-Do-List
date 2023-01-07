@@ -106,6 +106,7 @@ class TheTable extends Component {
             <React.Fragment>
                 <div>To Do List</div>
                 <div>Search</div>
+                <Link to='/table/new'>Add Activity</Link>
                 <Table dataSource={tableData} columns={tableColumn}/>
             </React.Fragment>
         );
