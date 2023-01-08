@@ -5,7 +5,7 @@ import './ActivityClass.css'
 
 class ActivityClass extends Component {
     state = {
-        userInput:{time:'',title:'',description:'',dueDate:'',tag:'',status:'open',_id:''},
+        userInput:{time:'',title:'',description:'',dueDate:'',tag:'',status:'Open',_id:''},
         errors:{title:null, description:null}
     }
 
@@ -145,7 +145,7 @@ class ActivityClass extends Component {
                     </div>
                     <div className="activityFormButtons">
                         <Button type='primary' onClick={()=>this.handleSubmit()}>Submit</Button>
-                        <button className='delete' disabled={this.props.params.id == "new"?true:false} onClick={()=>this.handleDetele()}>Delete</button>
+                        {this.props.params.id !== 'new'&&<button className='delete' onClick={()=>this.handleDetele()}>Delete</button>}
                     </div>
                 </div>
                 </form>

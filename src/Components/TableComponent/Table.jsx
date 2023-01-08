@@ -4,9 +4,6 @@ import {Link} from 'react-router-dom'
 import { getActivities } from "../../Assets/BackendService";
 import './Table.css'
 
-// let date = new Date()
-
-
 class TheTable extends Component {
     state={
         tableColumn:[
@@ -122,13 +119,18 @@ class TheTable extends Component {
         this.setState({tableData:updatedTableData})
     }
 
+    handleSearch({currentTarget}){
+        // Calling Search quary
+
+    }
+
     render() { 
         let {tableColumn,tableData} = this.state
         return (
             <React.Fragment>
                 <header>To Do List</header>
                 <div className="toolBar">
-                    <Input placeholder='Search'/>
+                    {/* <Input onChange={(e)=>this.handleSearch(e)} placeholder='Search'/> */}
                     <Button type='primary'><Link to='/table/new'>Add Activity</Link></Button>
                 </div>
                 <div className="tableContainer">
@@ -140,10 +142,3 @@ class TheTable extends Component {
 }
  
 export default TheTable;
-
-
-
-
-
-
-
