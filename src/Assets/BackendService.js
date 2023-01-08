@@ -4,8 +4,8 @@ const activities = [
     title: "Terminator",
     timeStamp: '7/1/2023 2:50:49 am',
     description: 2.5,
-    dueDate:'date',
-    tags:[],
+    dueDate:'2023-01-21',
+    tags:'urgent',
     status:'open'
   },
   {
@@ -13,8 +13,8 @@ const activities = [
     title: "Die Hard",
     timeStamp: '23/12/2022 3:50:49 pm',
     description: 2.5,
-    dueDate:'date',
-    tags:[],
+    dueDate:'2023-01-20',
+    tags:'highPriority',
     status:'working'
   },
   {
@@ -22,8 +22,8 @@ const activities = [
     title: "Get Out",
     timeStamp: '3/6/2021 1:50:49 pm',
     description: 3.5,
-    dueDate:'date',
-    tags:[],
+    dueDate:'2023-01-25',
+    tags:'important',
     status:'done'
   },
   {
@@ -31,8 +31,8 @@ const activities = [
     title: "Trip to Italy",
     timeStamp: '17/10/2022 12:50:49 am',
     description: 3.5,
-    dueDate:'date',
-    tags:[],
+    dueDate:'2023-01-25',
+    tags:'urgent',
     status:'overDue'
   },
   {
@@ -40,8 +40,8 @@ const activities = [
     title: "Airplane",
     timeStamp: '15/6/2022 10:03:49 am',
     description: 3.5,
-    dueDate:'date',
-    tags:[],
+    dueDate:'2023-01-25',
+    tags:'notImportant',
     status:'open'
   },
   {
@@ -49,8 +49,8 @@ const activities = [
     title: "Wedding Crashers",
     timeStamp: '02/3/2022 2:53:49 am',
     description: 3.5,
-    dueDate:'date',
-    tags:[],
+    dueDate:'2023-01-25',
+    tags:'meeting',
     status:'working'
   },
   {
@@ -58,8 +58,8 @@ const activities = [
     title: "Gone Girl",
     timeStamp: '30/8/2021 07:53:49 am',
     description: 4.5,
-    dueDate:'date',
-    tags:[],
+    dueDate:'2023-02-03',
+    tags:'meeting',
     status:'done'
   },
   {
@@ -67,8 +67,8 @@ const activities = [
     title: "The Sixth Sense",
     timeStamp: '05/5/2022 5:34:49 pm',
     description: 3.5,
-    dueDate:'date',
-    tags:[],
+    dueDate:'2023-02-03',
+    tags:'urgent',
     status:'overDue'
   },
   {
@@ -76,8 +76,8 @@ const activities = [
     title: "The Avengers",
     timeStamp: '4/2/2022 6:53:49 pm',
     description: 3.5,
-    dueDate:'date',
-    tags:[],
+    dueDate:'2023-02-01',
+    tags:'notImportant',
     status:'open'
   }
 ];
@@ -90,20 +90,22 @@ export function getActivity(id) {
   return activities.find(a => a._id === id);
 }
 
-// export function saveMovie(movie) {
-//   let movieInDb = movies.find(m => m._id === movie._id) || {};
-//   movieInDb.name = movie.name;
-//   movieInDb.genre = genresAPI.genres.find(g => g._id === movie.genreId);
-//   movieInDb.numberInStock = movie.numberInStock;
-//   movieInDb.dailyRentalRate = movie.dailyRentalRate;
+export function saveActivity(activity) {
+  let activityInDb = activity.find(m => m._id === activity._id) || {};
+  activityInDb.title = activity.title;
+  activityInDb.timeStamp = activity.time;
+  activityInDb.description = activity.description;
+  activityInDb.dueDate = activity.dueDate;
+  activityInDb.tags = activity.tag;
+  activityInDb.status = activity.status
 
-//   if (!movieInDb._id) {
-//     movieInDb._id = Date.now();
-//     movies.push(movieInDb);
-//   }
+  if (!activityInDb._id) {
+    activityInDb._id = Date.now();
+    activities.push(activityInDb);
+  }
 
-//   return movieInDb;
-// }
+  return activityInDb;
+}
 
 export function deleteActivity(id) {
   let activityInDb = activities.find(a => a._id === id);
