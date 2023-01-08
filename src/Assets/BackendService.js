@@ -1,84 +1,84 @@
 const activities = [
   {
     _id: "5b21ca3eeb7f6fbccd471815",
-    title: "Terminator",
+    title: "Cooking",
     timeStamp: '7/1/2023 2:50:49 am',
-    description: 2.5,
+    description: 'For Family Relatives',
     dueDate:'2023-01-21',
-    tags:'urgent',
-    status:'open'
+    tags:'Urgent',
+    status:'Open'
   },
   {
     _id: "5b21ca3eeb7f6fbccd471816",
-    title: "Die Hard",
+    title: "Read Book",
     timeStamp: '23/12/2022 3:50:49 pm',
-    description: 2.5,
+    description: 'Read Atomic Habits Book',
     dueDate:'2023-01-20',
-    tags:'highPriority',
-    status:'working'
+    tags:'High Priority',
+    status:'Working'
   },
   {
     _id: "5b21ca3eeb7f6fbccd471817",
-    title: "Get Out",
+    title: "Gardening",
     timeStamp: '3/6/2021 1:50:49 pm',
-    description: 3.5,
+    description: 'Watering the plants',
     dueDate:'2023-01-25',
-    tags:'important',
-    status:'done'
+    tags:'Important',
+    status:'Done'
   },
   {
     _id: "5b21ca3eeb7f6fbccd471819",
-    title: "Trip to Italy",
+    title: "Gym",
     timeStamp: '17/10/2022 12:50:49 am',
-    description: 3.5,
+    description: "Leg day",
     dueDate:'2023-01-25',
-    tags:'urgent',
-    status:'overDue'
+    tags:'Urgent',
+    status:'Over Due'
   },
   {
     _id: "5b21ca3eeb7f6fbccd47181a",
-    title: "Airplane",
+    title: "Movie Night",
     timeStamp: '15/6/2022 10:03:49 am',
-    description: 3.5,
+    description: 'New Star war episode releasing',
     dueDate:'2023-01-25',
-    tags:'notImportant',
-    status:'open'
+    tags:'Not Important',
+    status:'Open'
   },
   {
     _id: "5b21ca3eeb7f6fbccd47181b",
-    title: "Wedding Crashers",
+    title: "Yoga",
     timeStamp: '02/3/2022 2:53:49 am',
-    description: 3.5,
+    description: 'Should attain Yoga class',
     dueDate:'2023-01-25',
-    tags:'meeting',
-    status:'working'
+    tags:'Meeting',
+    status:'Working'
   },
   {
     _id: "5b21ca3eeb7f6fbccd47181e",
-    title: "Gone Girl",
+    title: "Meditation",
     timeStamp: '30/8/2021 07:53:49 am',
-    description: 4.5,
+    description: '15 Min of intense peace',
     dueDate:'2023-02-03',
-    tags:'meeting',
-    status:'done'
+    tags:'Meeting',
+    status:'Done'
   },
   {
     _id: "5b21ca3eeb7f6fbccd47181f",
-    title: "The Sixth Sense",
+    title: "Painting",
     timeStamp: '05/5/2022 5:34:49 pm',
-    description: 3.5,
+    description: 'Caz ill be boored',
     dueDate:'2023-02-03',
-    tags:'urgent',
-    status:'overDue'
+    tags:'Urgent',
+    status:'Over Due'
   },
   {
     _id: "5b21ca3eeb7f6fbccd471821",
     title: "The Avengers",
     timeStamp: '4/2/2022 6:53:49 pm',
-    description: 3.5,
+    description: 'New Movie Releasing',
     dueDate:'2023-02-01',
-    tags:'notImportant',
-    status:'open'
+    tags:'Not Important',
+    status:'Open'
   }
 ];
 
@@ -91,7 +91,7 @@ export function getActivity(id) {
 }
 
 export function saveActivity(activity) {
-  let activityInDb = activity.find(m => m._id === activity._id) || {};
+  let activityInDb = activities.find(m => m._id == activity._id) || {};
   activityInDb.title = activity.title;
   activityInDb.timeStamp = activity.time;
   activityInDb.description = activity.description;
@@ -100,7 +100,7 @@ export function saveActivity(activity) {
   activityInDb.status = activity.status
 
   if (!activityInDb._id) {
-    activityInDb._id = Date.now();
+    activityInDb._id = Date.now().toString();
     activities.push(activityInDb);
   }
 

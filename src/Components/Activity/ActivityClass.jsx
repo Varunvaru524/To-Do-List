@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { getActivity } from '../../Assets/BackendService';
+import {Button} from 'antd'
+import { getActivity,saveActivity,deleteActivity } from '../../Assets/BackendService';
+import './ActivityClass.css'
 
 class ActivityClass extends Component {
     state = {
-        userInput:{time:'',title:'',description:'',dueDate:'',tag:'',status:'',_id:''},
-        errors:{}
+        userInput:{time:'',title:'',description:'',dueDate:'',tag:'',status:'open',_id:''},
+        errors:{title:null, description:null}
     }
 
     componentDidMount(){
@@ -17,6 +19,7 @@ class ActivityClass extends Component {
             this.setState({userInput:newUserInput})
         }
         else {
+            // calling backend get api
             let data = getActivity(this.props.params.id)
             let updatedUserInput = {
                 time: data.timeStamp,
@@ -53,66 +56,98 @@ class ActivityClass extends Component {
     }
 
     handleDetele(){
-
+        //calling backend delete api
+        deleteActivity(this.props.params.id)
+        this.props.navigate(-1)
     }
 
     handleValidation(){
+        let {title,description} = this.state.userInput
 
+        if (title.length<=0) {
+            let updatedErrors = {}
+            updatedErrors.title = 'Title cannot be empty'
+            this.setState({errors:updatedErrors})
+        }
+        else if (title.length>=100) {
+            let updatedErrors = {}
+            updatedErrors.title = 'Title should not be more then 100 charectors'
+            this.setState({errors:updatedErrors})
+        }
+        else if (description.length<=0) {
+            let updatedErrors = {}
+            updatedErrors.description = 'Description cannot not be empty'
+            this.setState({errors:updatedErrors})
+        }
+        else if (description.length>=1000) {
+            let updatedErrors = {}
+            updatedErrors.description = 'Description should not be more then 1000 charectors'
+            this.setState({errors:updatedErrors})
+        }
+        else {
+            return true
+        }
     }
 
-    handleSubmit(event){
-        event.preventDefault()
+    handleSubmit(){
+        if (this.handleValidation()) {
+            //Calling backend api
+            saveActivity(this.state.userInput)
+            this.props.navigate(-1)
+        }
     }
 
     render() { 
-        let {params} = this.props
         let {description,dueDate,status,tag,time,title} = this.state.userInput
+
         return (
             <React.Fragment>
+                <form onSubmit={(e)=>e.preventDefault()}>
+                <div className="activitiesForm">
                 <h1>Activity</h1>
-                <form onSubmit={(e)=>this.handleSubmit(e)}>
                     <div className="timeStampContainer">
                         <p className='timeStamp'>The Time</p>
-                        <p className='time'>{time}</p>
+                        <div className='time'>{time}</div>
                     </div>
                     <div className='titleContainer'>
                         <p className='title'>Title</p>
                         <input type="text" onChange={(e)=>this.handleChange(e)} value={title} name='title' placeholder='Enter Title' />
-                        <p className='errors'>errors</p>
+                        <div className='errorFound'>{this.state.errors.title}</div>
                     </div>
                     <div className='descriptionContainer'>
                         <p className='description'>Description</p>
                         <input type="text" onChange={(e)=>this.handleChange(e)} value={description} name='description' placeholder='Enter Description' />
-                        <p className='errors'>errors</p>
+                        <div className='errorFound'>{this.state.errors.description}</div>
                     </div>
                     <div className='dueDateContainer'>
                         <p className='dueDate'>Due Date</p>
                         <input min={this.disablePreviousDate()}  type="date" onChange={(e)=>this.handleChange(e)} value={dueDate} name="dueDate" />
-                        <p className='errors'>errors</p>
                     </div>
                     <div className='TagContainer'>
                         <p className='tag'>Tag</p>
                         <select name='tag' onChange={(e)=>this.handleChange(e)} value={tag}>
-                            <option value="important">Important</option>
-                            <option value="urgent">Urgent</option>
-                            <option value="notImportant">Not Important</option>
-                            <option value="highPriority">High Priority</option>
-                            <option value="meeting">Meeting</option>
+                            <option value="">Select Tag</option>
+                            <option value="Important">Important</option>
+                            <option value="Urgent">Urgent</option>
+                            <option value="Not Important">Not Important</option>
+                            <option value="High Priority">High Priority</option>
+                            <option value="Meeting">Meeting</option>
                         </select>
-                        <p className='errors'>errors</p>
                     </div>
                     <div className='statusContainer'>
                         <p className='status'>Status</p>
                         <select name='status' onChange={(e)=>this.handleChange(e)} value={status}>
-                            <option value="open">Open</option>
-                            <option value="working">Working</option>
-                            <option value="done">Done</option>
-                            <option value="overDue">Over Due</option>
+                            <option value="Open">Open</option>
+                            <option value="Working">Working</option>
+                            <option value="Done">Done</option>
+                            <option value="Over Due">Over Due</option>
                         </select>
-                        <p className='errors'>errors</p>
                     </div>
-                    <button>Submit</button>
-                    <button>Delete</button>
+                    <div className="activityFormButtons">
+                        <Button type='primary' onClick={()=>this.handleSubmit()}>Submit</Button>
+                        <button className='delete' disabled={this.props.params.id == "new"?true:false} onClick={()=>this.handleDetele()}>Delete</button>
+                    </div>
+                </div>
                 </form>
             </React.Fragment>
         );

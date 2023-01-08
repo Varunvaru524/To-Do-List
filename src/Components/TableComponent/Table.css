@@ -1,0 +1,34 @@
+@import url(../../index.css);
+
+/* header */
+header{
+    font-size: 40px;
+    text-align: center;
+    margin: 30px;
+}
+
+
+/* Tool Bar */
+.toolBar{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding-bottom: 30px;
+}
+.toolBar a{
+    color: white;
+}
+.toolBar input{
+    width: 300px;
+    border-color: var(--blue)
+}
+
+
+/* Table */
+.tableContainer,.toolBar{
+    width: 90%;
+    margin: auto;
+}
+tr,th span {
+    text-align: center;
+}

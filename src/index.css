@@ -1,5 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Secular+One&display=swap');
+
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Secular One', sans-serif;
+    letter-spacing: 0.4px;
+    /* background-color: #23870738; */
+}
+
+:root{
+    --blue:#1677FF;
+    --red:#ce0909;
 }

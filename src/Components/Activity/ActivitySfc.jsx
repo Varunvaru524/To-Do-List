@@ -1,10 +1,10 @@
 import React,{Component} from 'react';
-import {useParams} from 'react-router-dom'
+import {useParams,useNavigate} from 'react-router-dom'
 import ActivityClass from './ActivityClass';
 
 const ActivitySfc = (props) => {
     return ( 
-        <ActivityClass params={useParams()}/>
+        <ActivityClass params={useParams()} navigate={useNavigate()}/>
      );
 }
  
