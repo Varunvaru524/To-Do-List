@@ -56,19 +56,19 @@ class TheTable extends Component {
                 }
             },
             {
-                title:'Tag',
+                title: <div>Tag</div>,
                 dataIndex:'tags',
                 key:'5',
-                filters:[
-                    {text:'Important',value:'Important'},
-                    {text:'Not Important',value:'Not Important'},
-                    {text:'Meeting',value:'Meeting'},
-                    {text:'Urgent',value:'Urgent'},
-                    {text:'High Priority',value:'High Priority'}
-                ],
-                onFilter:(value,record)=>{
-                    return record.tags.props.children === value
-                }
+                // filters:[
+                //     {text:'Important',value:'Important'},
+                //     {text:'Not Important',value:'Not Important'},
+                //     {text:'Meeting',value:'Meeting'},
+                //     {text:'Urgent',value:'Urgent'},
+                //     {text:'High Priority',value:'High Priority'}
+                // ],
+                // onFilter:(value,record)=>{
+                //     return record.tags.props.children === value
+                // }
             },
             {
                 title:'Status',
@@ -98,19 +98,25 @@ class TheTable extends Component {
         // Calling Backend Services
         let backendData = getActivities()
         let updatedTableData = backendData.map(data=>{
-            
-            let tagColor = null
-            if (data.tags == "Urgent") tagColor = 'red'
-            if (data.tags == "High Priority") tagColor = 'magenta'
-            if (data.tags == "Important") tagColor = 'green'
-            if (data.tags == "Not Important") tagColor = 'geekblue'
-            if (data.tags == "Meeting") tagColor = 'purple'
 
+            // Status Color
             let statusColor = null
             if (data.status == "Open") statusColor = '#0000FF'
             if (data.status == "Working") statusColor = '#fdbe00'
             if (data.status == "Done") statusColor = '#0ea227'
             if (data.status == "Over Due") statusColor = '#FF0000'
+
+            // To Render Tags
+            let tagsRendered = data.tags.map((data,index)=>{
+                let tagColor = null
+                if (data == "Urgent") tagColor = 'red'
+                if (data == "High Priority") tagColor = 'magenta'
+                if (data == "Important") tagColor = 'green'
+                if (data == "Not Important") tagColor = 'geekblue'
+                if (data == "Meeting") tagColor = 'purple'
+
+                return <Tag color={tagColor} key={index}>{data}</Tag>
+            })
 
             return {
                 time:data.timeStamp,
@@ -118,7 +124,7 @@ class TheTable extends Component {
                 status:<Tag color={statusColor}>{data.status}</Tag>,
                 description:data.description,
                 dueDate:data.dueDate,
-                tags:<Tag color={tagColor}>{data.tags}</Tag>,
+                tags:tagsRendered,
                 key:data._id,
                 delete: <Popconfirm onConfirm={()=>this.handleDelete(data)} title='Delete this Activity' description="Are you sure to delete this task?" okText="Yes" cancelText="No"><button className='delete'>Delete</button></Popconfirm>
             }
@@ -140,26 +146,36 @@ class TheTable extends Component {
 
     handleSearch({currentTarget}){
         let currentSearch = currentTarget.value.toUpperCase()
+        let {tableData} = this.state
 
         // Search from title
-        let titleSearch = this.state.tableData.filter(a=>{
-            return a.title.props.children.toUpperCase().startsWith(currentSearch)
+        let titleSearch = tableData.filter(e=>{
+            return e.title.props.children.toUpperCase().startsWith(currentSearch)
         })
 
         // Search from description
-        let descriptionSearch = this.state.tableData.filter(a=>{
-            return a.description.toUpperCase().startsWith(currentSearch)
+        let descriptionSearch = tableData.filter(e=>{
+            return e.description.toUpperCase().startsWith(currentSearch)
         })
 
         // Search from Status
-        let statusSearch = this.state.tableData.filter(a=>{
-            return a.status.props.children.toUpperCase().startsWith(currentSearch)
+        let statusSearch = tableData.filter(e=>{
+            return e.status.props.children.toUpperCase().startsWith(currentSearch)
         })
 
         // Search from Time
-        let timeSearch = this.state.tableData.filter(a=>{
-            return a.time.toUpperCase().startsWith(currentSearch)
+        let timeSearch = tableData.filter(e=>{
+            return e.time.toUpperCase().startsWith(currentSearch)
         })
+
+        // let tagSearch = tableData.filter(e=>{
+        //     for (let i = 0; i < e.tags.length; i++) {
+        //         let given = e.tags[i]
+        //         console.log(e.tags);
+        //         // return given.toUpperCase().startsWith(currentSearch)
+        //     }
+        //     return true
+        // })
 
         // Eleminating the duplicate elements
         let search = [ ...titleSearch, ...descriptionSearch, ...statusSearch, ...timeSearch]

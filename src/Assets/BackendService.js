@@ -5,7 +5,7 @@ const activities = [
     timeStamp: '7/1/2023 2:50:49 am',
     description: 'For Family Relatives',
     dueDate:'2023-01-21',
-    tags:'Urgent',
+    tags:['Urgent','Meeting'],
     status:'Open'
   },
   {
@@ -14,7 +14,7 @@ const activities = [
     timeStamp: '23/12/2022 3:50:49 pm',
     description: 'Read Atomic Habits Book',
     dueDate:'2023-01-20',
-    tags:'High Priority',
+    tags:['Urgent','Important','Fast'],
     status:'Working'
   },
   {
@@ -23,7 +23,7 @@ const activities = [
     timeStamp: '3/6/2021 1:50:49 pm',
     description: 'Watering the plants',
     dueDate:'2023-01-25',
-    tags:'Important',
+    tags:['Urgent','Sample Tag'],
     status:'Done'
   },
   {
@@ -32,7 +32,7 @@ const activities = [
     timeStamp: '17/10/2022 12:50:49 am',
     description: "Leg day",
     dueDate:'2023-01-25',
-    tags:'Urgent',
+    tags:['Imp Meeting','High Priority',],
     status:'Over Due'
   },
   {
@@ -41,7 +41,7 @@ const activities = [
     timeStamp: '15/6/2022 10:03:49 am',
     description: 'New Star war episode releasing',
     dueDate:'2023-01-25',
-    tags:'Not Important',
+    tags:['Urgent'],
     status:'Open'
   },
   {
@@ -50,7 +50,7 @@ const activities = [
     timeStamp: '2/3/2022 2:53:49 am',
     description: 'Should attain Yoga class',
     dueDate:'2023-01-25',
-    tags:'Meeting',
+    tags:['Not Important'],
     status:'Working'
   },
   {
@@ -59,7 +59,7 @@ const activities = [
     timeStamp: '30/8/2021 07:53:49 am',
     description: '15 Min of intense peace',
     dueDate:'2023-02-03',
-    tags:'Meeting',
+    tags:['Sample Tag'],
     status:'Done'
   },
   {
@@ -68,7 +68,7 @@ const activities = [
     timeStamp: '5/5/2022 5:34:49 pm',
     description: 'Caz ill be boored',
     dueDate:'2023-02-03',
-    tags:'Urgent',
+    tags:['Important','High Priority'],
     status:'Over Due'
   },
   {
@@ -77,7 +77,7 @@ const activities = [
     timeStamp: '4/2/2022 6:53:49 pm',
     description: 'New Movie Releasing',
     dueDate:'2023-02-01',
-    tags:'Not Important',
+    tags:['Not Important'],
     status:'Open'
   }
 ];

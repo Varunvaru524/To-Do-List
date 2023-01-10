@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { Button, message,Popconfirm } from 'antd'
+import { Button, message,Popconfirm,Tag } from 'antd'
 import { getActivity, saveActivity, deleteActivity } from '../../Assets/BackendService';
 import './ActivityClass.css'
 
 class ActivityClass extends Component {
     state = {
-        userInput: { time:'', title:'', description:'', dueDate:'', tag:'', status:'Open', _id:''},
-        errors: { title:null, description:null }
+        userInput: { time:'', title:'', description:'', dueDate:'', tag:[], status:'Open', _id:''},
+        errors: { title:null, description:null },
+        tagInput:'',
     }
 
     componentDidMount(){
@@ -55,6 +56,12 @@ class ActivityClass extends Component {
         return year + '-' + month + '-' + day;
     }
 
+    handleTagSubmit(){
+        let updatedUserInput = this.state.userInput
+        updatedUserInput.tag.push(this.state.tagInput)
+        this.setState({userInput:updatedUserInput,tagInput:''})
+    }
+
     handleDelete(e){
         message.success('Successfully deleted')
 
@@ -96,6 +103,7 @@ class ActivityClass extends Component {
 
             //Calling backend api
             saveActivity(this.state.userInput)
+            message.success('Successfully Added')
             this.props.navigate(-1)
         }
     }
@@ -126,16 +134,13 @@ class ActivityClass extends Component {
                         <p className='dueDate'>Due Date</p>
                         <input min={this.disablePreviousDate()}  type="date" onChange={(e)=>this.handleChange(e)} value={dueDate} name="dueDate" />
                     </div>
-                    <div className='TagContainer'>
+                    <div className='tagContainer'>
                         <p className='tag'>Tag</p>
-                        <select name='tag' onChange={(e)=>this.handleChange(e)} value={tag}>
-                            <option value="">Select Tag</option>
-                            <option value="Important">Important</option>
-                            <option value="Urgent">Urgent</option>
-                            <option value="Not Important">Not Important</option>
-                            <option value="High Priority">High Priority</option>
-                            <option value="Meeting">Meeting</option>
-                        </select>
+                        <div className='tagsContainer'>
+                            {tag.map((e,i)=><Tag closable key={i}>{e}</Tag>)}
+                        </div>
+                        <input style={{display:'block'}} type="text" value={this.state.tagInput} onChange={(e)=>{this.setState({tagInput:e.currentTarget.value})}}/>
+                        <Button style={{display:'block'}} onClick={()=>this.handleTagSubmit()} type='primary'>Add Tag</Button>
                     </div>
                     <div className='statusContainer'>
                         <p className='status'>Status</p>

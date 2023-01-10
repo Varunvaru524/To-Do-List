@@ -15,7 +15,7 @@
     flex-direction: column;
     align-items: center;
 } 
-.timeStampContainer>p{
+.timeStampContainer>p,.tagsContainer{
     width: 350px;
 }
 .activitiesForm input,.activitiesForm select{
@@ -27,8 +27,15 @@
 .activitiesForm input{
     padding-left: 5px;
 }
-.titleContainer>p,.descriptionContainer>p,.timeStampContainer>p,.dueDateContainer>p,.TagContainer>p,.statusContainer>p{
+.titleContainer>p,.descriptionContainer>p,.timeStampContainer>p,.dueDateContainer>p,.tagContainer>p,.statusContainer>p{
     margin: 20px 0px 4px 0px;
+}
+.tagsContainer{
+    display: flex;
+    flex-wrap: wrap;
+}
+.tagContainer input{
+    margin: 10px 0;
 }
 
 
