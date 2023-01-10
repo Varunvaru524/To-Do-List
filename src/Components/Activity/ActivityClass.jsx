@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import {Button} from 'antd'
-import { getActivity,saveActivity,deleteActivity } from '../../Assets/BackendService';
+import { Button } from 'antd'
+import { getActivity, saveActivity, deleteActivity } from '../../Assets/BackendService';
 import './ActivityClass.css'
 
 class ActivityClass extends Component {
     state = {
-        userInput:{time:'',title:'',description:'',dueDate:'',tag:'',status:'Open',_id:''},
-        errors:{title:null, description:null}
+        userInput: { time:'', title:'', description:'', dueDate:'', tag:'', status:'Open', _id:''},
+        errors: { title:null, description:null }
     }
 
     componentDidMount(){
@@ -104,7 +104,7 @@ class ActivityClass extends Component {
             <React.Fragment>
                 <form onSubmit={(e)=>e.preventDefault()}>
                 <div className="activitiesForm">
-                <h1>Activity</h1>
+                    <h1 className="activityHeadder">Activity</h1>
                     <div className="timeStampContainer">
                         <p className='timeStamp'>The Time</p>
                         <div className='time'>{time}</div>

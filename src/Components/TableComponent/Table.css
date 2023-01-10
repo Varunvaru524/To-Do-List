@@ -7,7 +7,6 @@ header{
     margin: 30px;
 }
 
-
 /* Tool Bar */
 .toolBar{
     display: flex;
@@ -29,6 +28,6 @@ header{
     width: 90%;
     margin: auto;
 }
-tr,th span {
+tr,th div {
     text-align: center;
 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Table, Button,Input,Tag} from 'antd'
 import {Link} from 'react-router-dom'
-import { getActivities } from "../../Assets/BackendService";
+import { getActivities,deleteActivity } from "../../Assets/BackendService";
 import './Table.css'
 
 class TheTable extends Component {
@@ -83,9 +83,15 @@ class TheTable extends Component {
                 onFilter:(value,record)=>{
                     return record.status.props.children === value
                 }
+            },
+            {
+                title:<div>Delete</div>,
+                dataIndex:'delete',
+                key:7
             }
         ],
-        tableData:[]
+        tableData:[],
+        searchData:[]
     }
 
     componentDidMount() {
@@ -108,37 +114,74 @@ class TheTable extends Component {
 
             return {
                 time:data.timeStamp,
-                title:<Link to={'/table'+'/'+data._id}>{data.title}</Link>,
+                title:<Link to={'/table'+'/'+data._id} title={'Edit'}>{data.title}</Link>,
                 status:<Tag color={statusColor}>{data.status}</Tag>,
                 description:data.description,
                 dueDate:data.dueDate,
                 tags:<Tag color={tagColor}>{data.tags}</Tag>,
-                key:data._id
+                key:data._id,
+                delete: <button onClick={()=>this.handleDelete(data)} className='delete'>Delete</button>
             }
         })
-        this.setState({tableData:updatedTableData})
+        this.setState({tableData:updatedTableData, searchData:updatedTableData})
+    }
+
+    handleDelete (data){
+        let updatedTableData = [...this.state.tableData]
+        let deleteIndex = updatedTableData.findIndex(a=>a.key==data._id)
+        updatedTableData.splice(deleteIndex,1)
+
+        this.setState({tableData:updatedTableData,searchData:updatedTableData})
+
+        //Calling backend delete api
+        deleteActivity(data._id)
     }
 
     handleSearch({currentTarget}){
-        // Calling Search quary
+        let currentSearch = currentTarget.value.toUpperCase()
 
+        // Search from title
+        let titleSearch = this.state.tableData.filter(a=>{
+            return a.title.props.children.toUpperCase().startsWith(currentSearch)
+        })
+
+        // Search from description
+        let descriptionSearch = this.state.tableData.filter(a=>{
+            return a.description.toUpperCase().startsWith(currentSearch)
+        })
+
+        // Search from Status
+        let statusSearch = this.state.tableData.filter(a=>{
+            return a.status.props.children.toUpperCase().startsWith(currentSearch)
+        })
+
+        // Search from Time
+        let timeSearch = this.state.tableData.filter(a=>{
+            return a.time.toUpperCase().startsWith(currentSearch)
+        })
+
+        // Eleminating the duplicate elements
+        let search = [ ...titleSearch, ...descriptionSearch, ...statusSearch, ...timeSearch]
+        let searchData = search.filter((e,i)=>search.indexOf(e)==i)
+        this.setState({searchData})
     }
 
     render() { 
-        let {tableColumn,tableData} = this.state
+        let {tableColumn,searchData} = this.state
+
         return (
             <React.Fragment>
                 <header>To Do List</header>
                 <div className="toolBar">
-                    {/* <Input onChange={(e)=>this.handleSearch(e)} placeholder='Search'/> */}
+                    <Input onChange={(e)=>this.handleSearch(e)} placeholder='Search'/>
                     <Button type='primary'><Link to='/table/new'>Add Activity</Link></Button>
                 </div>
                 <div className="tableContainer">
-                    <Table dataSource={tableData} columns={tableColumn}/>
+                    <Table dataSource={searchData} columns={tableColumn}/>
                 </div>
             </React.Fragment>
         );
     }
 }
- 
+
 export default TheTable;

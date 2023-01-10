@@ -47,7 +47,7 @@ const activities = [
   {
     _id: "5b21ca3eeb7f6fbccd47181b",
     title: "Yoga",
-    timeStamp: '02/3/2022 2:53:49 am',
+    timeStamp: '2/3/2022 2:53:49 am',
     description: 'Should attain Yoga class',
     dueDate:'2023-01-25',
     tags:'Meeting',
@@ -65,7 +65,7 @@ const activities = [
   {
     _id: "5b21ca3eeb7f6fbccd47181f",
     title: "Painting",
-    timeStamp: '05/5/2022 5:34:49 pm',
+    timeStamp: '5/5/2022 5:34:49 pm',
     description: 'Caz ill be boored',
     dueDate:'2023-02-03',
     tags:'Urgent',
@@ -101,7 +101,7 @@ export function saveActivity(activity) {
 
   if (!activityInDb._id) {
     activityInDb._id = Date.now().toString();
-    activities.push(activityInDb);
+    activities.unshift(activityInDb);
   }
 
   return activityInDb;
