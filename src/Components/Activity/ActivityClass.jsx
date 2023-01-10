@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button } from 'antd'
+import { Button, message,Popconfirm } from 'antd'
 import { getActivity, saveActivity, deleteActivity } from '../../Assets/BackendService';
 import './ActivityClass.css'
 
@@ -55,7 +55,9 @@ class ActivityClass extends Component {
         return year + '-' + month + '-' + day;
     }
 
-    handleDetele(){
+    handleDelete(e){
+        message.success('Successfully deleted')
+
         //calling backend delete api
         deleteActivity(this.props.params.id)
         this.props.navigate(-1)
@@ -91,6 +93,7 @@ class ActivityClass extends Component {
 
     handleSubmit(){
         if (this.handleValidation()) {
+
             //Calling backend api
             saveActivity(this.state.userInput)
             this.props.navigate(-1)
@@ -145,7 +148,9 @@ class ActivityClass extends Component {
                     </div>
                     <div className="activityFormButtons">
                         <Button type='primary' onClick={()=>this.handleSubmit()}>Submit</Button>
-                        {this.props.params.id !== 'new'&&<button className='delete' onClick={()=>this.handleDetele()}>Delete</button>}
+                        {
+                            this.props.params.id !== 'new'&&<Popconfirm onConfirm={(e)=>this.handleDelete(e)} title='Delete this Activity' description="Are you sure to delete this task?" okText="Yes" cancelText="No"><button className='delete'>Delete</button></Popconfirm>
+                        }
                     </div>
                 </div>
                 </form>

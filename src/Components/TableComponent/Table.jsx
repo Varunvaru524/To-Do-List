@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Table, Button,Input,Tag} from 'antd'
+import {Table, Button,Input,Tag,message,Popconfirm} from 'antd'
 import {Link} from 'react-router-dom'
 import { getActivities,deleteActivity } from "../../Assets/BackendService";
 import './Table.css'
@@ -120,7 +120,7 @@ class TheTable extends Component {
                 dueDate:data.dueDate,
                 tags:<Tag color={tagColor}>{data.tags}</Tag>,
                 key:data._id,
-                delete: <button onClick={()=>this.handleDelete(data)} className='delete'>Delete</button>
+                delete: <Popconfirm onConfirm={()=>this.handleDelete(data)} title='Delete this Activity' description="Are you sure to delete this task?" okText="Yes" cancelText="No"><button className='delete'>Delete</button></Popconfirm>
             }
         })
         this.setState({tableData:updatedTableData, searchData:updatedTableData})
@@ -135,6 +135,7 @@ class TheTable extends Component {
 
         //Calling backend delete api
         deleteActivity(data._id)
+        message.success('Successfully Deleted')
     }
 
     handleSearch({currentTarget}){
