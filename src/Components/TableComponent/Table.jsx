@@ -199,7 +199,7 @@ class TheTable extends Component {
             <React.Fragment>
                 <header>To Do List</header>
                 <div className="toolBar">
-                    <Input onChange={(e)=>this.handleSearch(e)} placeholder='Search'/>
+                    <Input onChange={(e)=>this.handleSearch(e)} placeholder='Search by Title, Description, Time, Tags or Status'/>
                     <Button type='primary'><Link to='/table/new'>Add Activity</Link></Button>
                 </div>
                 <div className="tableContainer">

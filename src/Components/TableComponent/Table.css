@@ -20,7 +20,7 @@ header{
     color: white;
 }
 .toolBar input{
-    width: 300px;
+    width: 400px;
     border-color: var(--blue)
 }
 
