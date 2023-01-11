@@ -24,8 +24,8 @@ class TheTable extends Component {
                 dataIndex:'title',
                 key:'2',
                 sorter:(a,b)=>{
-                    let count1 = a.title.toString().toUpperCase()
-                    let count2 = b.title.toString().toUpperCase()
+                    let count1 = a.title.props.children.toString().toUpperCase()
+                    let count2 = b.title.props.children.toString().toUpperCase()
                     if (count1<count2) {return -1}
                     if (count1>count2) {return 1}
                     return 0
