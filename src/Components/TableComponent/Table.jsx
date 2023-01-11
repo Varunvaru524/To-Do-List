@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Table, Button,Input,Tag,message,Popconfirm} from 'antd'
+import {Table, Button,Input,Tag,message,Popconfirm,Space} from 'antd'
 import {Link} from 'react-router-dom'
 import { getActivities,deleteActivity } from "../../Assets/BackendService";
 import './Table.css'
@@ -92,7 +92,7 @@ class TheTable extends Component {
                 }
             },
             {
-                title:<div>Delete</div>,
+                title:<div>Edit or Delete</div>,
                 dataIndex:'delete',
                 key:7
             }
@@ -133,7 +133,16 @@ class TheTable extends Component {
                 dueDate:data.dueDate,
                 tags:tagsRendered,
                 key:data._id,
-                delete: <Popconfirm onConfirm={()=>this.handleDelete(data)} title='Delete this Activity' description="Are you sure to delete this task?" okText="Yes" cancelText="No"><button className='delete'>Delete</button></Popconfirm>
+                delete: (
+                    <Space>
+                        <Link to={'/table'+'/'+data._id}>
+                            <Button type='primary' className='edit'>Edit</Button>
+                        </Link>
+                        <Popconfirm onConfirm={()=>this.handleDelete(data)} title='Delete this Activity' description="Are you sure to delete this task?" okText="Yes" cancelText="No">
+                            <Button className='delete'>Delete</Button>
+                        </Popconfirm>
+                    </Space>
+                )
             }
         })
         this.setState({tableData:updatedTableData, searchData:updatedTableData})

@@ -16,7 +16,7 @@ header{
     justify-content: space-between;
     padding-bottom: 30px;
 }
-.toolBar a{
+.toolBar a,.edit a,.delete span{
     color: white;
 }
 .toolBar input{
@@ -32,4 +32,12 @@ header{
 }
 tr,th div {
     text-align: center;
+}
+.edit{
+    background-color: var(--blue);
+    color: white;
+    border: 1px solid;
+    border-radius: 8px;
+    width: 80px;
+    cursor: pointer;
 }
