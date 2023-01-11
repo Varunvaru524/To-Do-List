@@ -209,7 +209,7 @@ class TheTable extends Component {
                 <header>To Do List</header>
                 <div className="toolBar">
                     <Input onChange={(e)=>this.handleSearch(e)} placeholder='Search by Title, Description, Time, Tags or Status'/>
-                    <Button type='primary'><Link to='/table/new'>Add Activity</Link></Button>
+                    <Link to='/table/new'><Button type='primary'>Add Activity</Button></Link>
                 </div>
                 <div className="tableContainer">
                     <Table dataSource={searchData} columns={tableColumn}/>
