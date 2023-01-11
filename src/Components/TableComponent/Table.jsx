@@ -7,22 +7,11 @@ import './Table.css'
 class TheTable extends Component {
     state={
         tableColumn:[
-            {
-                title:'Time',
-                dataIndex:'time',
-                key:'1',
-                sorter:(a,b)=>{
-                    let count1 = a.time.toString().toUpperCase()
-                    let count2 = b.time.toString().toUpperCase()
-                    if (count1<count2) {return -1}
-                    if (count1>count2) {return 1}
-                    return 0
-                }
-            },
+            
             {
                 title:'Title',
                 dataIndex:'title',
-                key:'2',
+                key:'1',
                 sorter:(a,b)=>{
                     let count1 = a.title.props.children.toString().toUpperCase()
                     let count2 = b.title.props.children.toString().toUpperCase()
@@ -34,10 +23,22 @@ class TheTable extends Component {
             {
                 title:'Description',
                 dataIndex:'description',
-                key:'3',
+                key:'2',
                 sorter:(a,b)=>{
                     let count1 = a.description.toString().toUpperCase()
                     let count2 = b.description.toString().toUpperCase()
+                    if (count1<count2) {return -1}
+                    if (count1>count2) {return 1}
+                    return 0
+                }
+            },
+            {
+                title:'Time',
+                dataIndex:'time',
+                key:'3',
+                sorter:(a,b)=>{
+                    let count1 = a.time.toString().toUpperCase()
+                    let count2 = b.time.toString().toUpperCase()
                     if (count1<count2) {return -1}
                     if (count1>count2) {return 1}
                     return 0
