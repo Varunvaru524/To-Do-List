@@ -59,16 +59,22 @@ class TheTable extends Component {
                 title: <div>Tag</div>,
                 dataIndex:'tags',
                 key:'5',
-                // filters:[
-                //     {text:'Important',value:'Important'},
-                //     {text:'Not Important',value:'Not Important'},
-                //     {text:'Meeting',value:'Meeting'},
-                //     {text:'Urgent',value:'Urgent'},
-                //     {text:'High Priority',value:'High Priority'}
-                // ],
-                // onFilter:(value,record)=>{
-                //     return record.tags.props.children === value
-                // }
+                filters:[
+                    {text:'Important',value:'Important'},
+                    {text:'Not Important',value:'Not Important'},
+                    {text:'Meeting',value:'Meeting'},
+                    {text:'Urgent',value:'Urgent'},
+                    {text:'High Priority',value:'High Priority'}
+                ],
+                onFilter:(value,record)=>{
+                    let tagsArray = record.tags.map(e=>e.props.children)
+                    for (let i = 0; i < tagsArray.length ; i++) {
+                        let individualTags = tagsArray[i] == value
+                        if (individualTags) {
+                            return true
+                        }
+                    }
+                }
             },
             {
                 title:'Status',
@@ -168,17 +174,19 @@ class TheTable extends Component {
             return e.time.toUpperCase().startsWith(currentSearch)
         })
 
-        // let tagSearch = tableData.filter(e=>{
-        //     for (let i = 0; i < e.tags.length; i++) {
-        //         let given = e.tags[i]
-        //         console.log(e.tags);
-        //         // return given.toUpperCase().startsWith(currentSearch)
-        //     }
-        //     return true
-        // })
+        // Search from Tags
+        let tagSearch = tableData.filter(e=>{
+            let tagsArray = e.tags.map(e=>e.props.children)
+            for (let i = 0; i < tagsArray.length ; i++) {
+                let individualTags = tagsArray[i].toUpperCase().startsWith(currentSearch)
+                if (individualTags) {
+                    return true
+                }
+            }
+        })
 
         // Eleminating the duplicate elements
-        let search = [ ...titleSearch, ...descriptionSearch, ...statusSearch, ...timeSearch]
+        let search = [ ...titleSearch, ...descriptionSearch, ...statusSearch, ...timeSearch, ...tagSearch]
         let searchData = search.filter((e,i)=>search.indexOf(e)==i)
         this.setState({searchData})
     }

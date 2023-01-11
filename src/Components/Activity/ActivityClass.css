@@ -15,6 +15,9 @@
     flex-direction: column;
     align-items: center;
 } 
+form input::placeholder{
+    font-size: small;
+}
 .timeStampContainer>p,.tagsContainer{
     width: 350px;
 }
@@ -30,12 +33,18 @@
 .titleContainer>p,.descriptionContainer>p,.timeStampContainer>p,.dueDateContainer>p,.tagContainer>p,.statusContainer>p{
     margin: 20px 0px 4px 0px;
 }
+.dueDateContainer input,select{
+    cursor: pointer;
+}
 .tagsContainer{
     display: flex;
     flex-wrap: wrap;
 }
 .tagContainer input{
-    margin: 10px 0;
+    margin: 10px 0 0 0;
+}
+.tagContainer .errorFound{
+    margin-bottom: 10px;
 }
 
 
@@ -43,10 +52,8 @@
 .errorFound{
     width: 350px;
     padding: 3px;
-    color: white;
-    background-color: var(--red);
+    color: var(--red);
     border-radius: 5px;
-    text-align: center;
 }
 
 

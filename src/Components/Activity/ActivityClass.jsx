@@ -6,7 +6,7 @@ import './ActivityClass.css'
 class ActivityClass extends Component {
     state = {
         userInput: { time:'', title:'', description:'', dueDate:'', tag:[], status:'Open', _id:''},
-        errors: { title:null, description:null },
+        errors: { title:null, description:null,dueDate:null,tag:null },
         tagInput:'',
     }
 
@@ -71,26 +71,36 @@ class ActivityClass extends Component {
     }
 
     handleValidation(){
-        let {title,description} = this.state.userInput
+        let {title,description,dueDate,tag} = this.state.userInput
 
         if (title.length<=0) {
             let updatedErrors = {}
-            updatedErrors.title = 'Title cannot be empty'
+            updatedErrors.title = '* Title cannot be empty'
             this.setState({errors:updatedErrors})
         }
         else if (title.length>=100) {
             let updatedErrors = {}
-            updatedErrors.title = 'Title should not be more then 100 charectors'
+            updatedErrors.title = '* Title should not be more then 100 charectors'
             this.setState({errors:updatedErrors})
         }
         else if (description.length<=0) {
             let updatedErrors = {}
-            updatedErrors.description = 'Description cannot not be empty'
+            updatedErrors.description = '* Description cannot not be empty'
             this.setState({errors:updatedErrors})
         }
         else if (description.length>=1000) {
             let updatedErrors = {}
-            updatedErrors.description = 'Description should not be more then 1000 charectors'
+            updatedErrors.description = '* Description should not be more then 1000 charectors'
+            this.setState({errors:updatedErrors})
+        }
+        else if (dueDate == '') {
+            let updatedErrors = {}
+            updatedErrors.dueDate = '* Due Date cannot be empty'
+            this.setState({errors:updatedErrors})
+        }
+        else if (tag.length == 0) {
+            let updatedErrors = {}
+            updatedErrors.tag = '* Tags cannot be empty'
             this.setState({errors:updatedErrors})
         }
         else {
@@ -110,6 +120,7 @@ class ActivityClass extends Component {
 
     render() { 
         let {description,dueDate,status,tag,time,title} = this.state.userInput
+        let {title:errorTitle,description:errorDescription,dueDate:errorDueDate,tag:errorTag} = this.state.errors
 
         return (
             <React.Fragment>
@@ -123,23 +134,25 @@ class ActivityClass extends Component {
                     <div className='titleContainer'>
                         <p className='title'>Title</p>
                         <input type="text" onChange={(e)=>this.handleChange(e)} value={title} name='title' placeholder='Enter Title' />
-                        <div className='errorFound'>{this.state.errors.title}</div>
+                        <div className='errorFound'>{errorTitle}</div>
                     </div>
                     <div className='descriptionContainer'>
                         <p className='description'>Description</p>
                         <input type="text" onChange={(e)=>this.handleChange(e)} value={description} name='description' placeholder='Enter Description' />
-                        <div className='errorFound'>{this.state.errors.description}</div>
+                        <div className='errorFound'>{errorDescription}</div>
                     </div>
                     <div className='dueDateContainer'>
                         <p className='dueDate'>Due Date</p>
                         <input min={this.disablePreviousDate()}  type="date" onChange={(e)=>this.handleChange(e)} value={dueDate} name="dueDate" />
+                        <div className='errorFound'>{errorDueDate}</div>
                     </div>
                     <div className='tagContainer'>
                         <p className='tag'>Tag</p>
                         <div className='tagsContainer'>
                             {tag.map((e,i)=><Tag closable key={i}>{e}</Tag>)}
                         </div>
-                        <input style={{display:'block'}} type="text" value={this.state.tagInput} onChange={(e)=>{this.setState({tagInput:e.currentTarget.value})}}/>
+                        <input style={{display:'block'}} type="text" value={this.state.tagInput} onChange={(e)=>{this.setState({tagInput:e.currentTarget.value})}} placeholder='Enter Tag'/>
+                        <div className='errorFound'>{errorTag}</div>
                         <Button style={{display:'block'}} onClick={()=>this.handleTagSubmit()} type='primary'>Add Tag</Button>
                     </div>
                     <div className='statusContainer'>
@@ -150,6 +163,7 @@ class ActivityClass extends Component {
                             <option value="Done">Done</option>
                             <option value="Over Due">Over Due</option>
                         </select>
+                        <div className='errorFound'></div>
                     </div>
                     <div className="activityFormButtons">
                         <Button type='primary' onClick={()=>this.handleSubmit()}>Submit</Button>
