@@ -114,35 +114,66 @@ class TheTable extends Component {
             if (data.status == "Over Due") statusColor = '#FF0000'
 
             // To Render Tags
-            let tagsRendered = data.tags.map((data,index)=>{
+            let tagsRendered = data.tags.map((tagData,index)=>{
                 let tagColor = null
-                if (data == "Urgent") tagColor = 'red'
-                if (data == "High Priority") tagColor = 'magenta'
-                if (data == "Important") tagColor = 'green'
-                if (data == "Not Important") tagColor = 'geekblue'
-                if (data == "Meeting") tagColor = 'purple'
+                if (tagData == "Urgent") tagColor = 'red'
+                if (tagData == "High Priority") tagColor = 'magenta'
+                if (tagData == "Important") tagColor = 'green'
+                if (tagData == "Not Important") tagColor = 'geekblue'
+                if (tagData == "Meeting") tagColor = 'purple'
 
-                return <Tag color={tagColor} key={index}>{data}</Tag>
+                if (data.status == 'Done') {
+                    return <Tag color={tagColor} key={index}>{<strike>{tagData}</strike>}</Tag>
+                }
+                else {
+                    return <Tag color={tagColor} key={index}>{tagData}</Tag>
+                }
+
             })
 
-            return {
-                time:data.timeStamp,
-                title:<Link to={'/table'+'/'+data._id} title={'Edit'}>{data.title}</Link>,
-                status:<Tag color={statusColor}>{data.status}</Tag>,
-                description:data.description,
-                dueDate:data.dueDate,
-                tags:tagsRendered,
-                key:data._id,
-                delete: (
-                    <Space>
-                        <Link to={'/table'+'/'+data._id}>
-                            <Button type='primary' className='edit'>Edit</Button>
-                        </Link>
-                        <Popconfirm onConfirm={()=>this.handleDelete(data)} title='Delete this Activity' description="Are you sure to delete this task?" okText="Yes" cancelText="No">
-                            <Button className='delete'>Delete</Button>
-                        </Popconfirm>
-                    </Space>
-                )
+            if (data.status == "Done") {
+                return {
+                    time:<strike>{data.timeStamp}</strike>,
+                    title:<strike><Link to={'/table'+'/'+data._id} title={'Edit'}>{data.title}</Link></strike>,
+                    status:<strike><Tag color={statusColor}>{data.status}</Tag></strike>,
+                    description:<strike>{data.description}</strike>,
+                    dueDate:<strike>{data.dueDate}</strike>,
+                    tags:tagsRendered,
+                    key:data._id,
+                    delete: (
+                        <Space>
+                            <Link to={'/table'+'/'+data._id}>
+                                <Button type='primary' className='edit'>Edit</Button>
+                            </Link>
+                            <Popconfirm onConfirm={()=>this.handleDelete(data)} title='Delete this Activity' description="Are you sure to delete this task?" okText="Yes" cancelText="No">
+                                <Button className='delete'>Delete</Button>
+                            </Popconfirm>
+                        </Space>
+                    )
+                }
+            }
+
+            else {
+                return {
+                    time:data.timeStamp,
+                    title:<Link to={'/table'+'/'+data._id} title={'Edit'}>{data.title}</Link>,
+                    status:<Tag color={statusColor}>{data.status}</Tag>,
+                    description:data.description,
+                    dueDate:data.dueDate,
+                    tags:tagsRendered,
+                    key:data._id,
+                    delete: (
+                        <Space>
+                            <Link to={'/table'+'/'+data._id}>
+                                <Button type='primary' className='edit'>Edit</Button>
+                            </Link>
+                            <Popconfirm onConfirm={()=>this.handleDelete(data)} title='Delete this Activity' description="Are you sure to delete this task?" okText="Yes" cancelText="No">
+                                <Button className='delete'>Delete</Button>
+                            </Popconfirm>
+                        </Space>
+                    )
+                }
+
             }
         })
         this.setState({tableData:updatedTableData, searchData:updatedTableData})

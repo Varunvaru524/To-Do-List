@@ -58,8 +58,21 @@ class ActivityClass extends Component {
 
     handleTagSubmit(){
         let updatedUserInput = this.state.userInput
-        updatedUserInput.tag.push(this.state.tagInput)
-        this.setState({userInput:updatedUserInput,tagInput:''})
+        let updatedErrors = this.state.errors
+        
+        if (this.state.tagInput.length == 0) {
+            updatedErrors.tag = '* Tag cannot be empty'
+            this.setState({errors:updatedErrors})
+        }
+        else if (updatedUserInput.tag.includes(this.state.tagInput)) {
+            updatedErrors.tag = '* Tag already exists'
+            this.setState({errors:updatedErrors})
+        }
+        else {
+            updatedUserInput.tag.push(this.state.tagInput)
+            updatedErrors.tag = null
+            this.setState({userInput:updatedUserInput,tagInput:'',errors:updatedErrors})
+        }
     }
 
     handleDelete(e){
@@ -148,10 +161,8 @@ class ActivityClass extends Component {
                     </div>
                     <div className='tagContainer'>
                         <p className='tag'>Tag</p>
-                        <div className='tagsContainer'>
-                            {tag.map((e,i)=><Tag closable key={i}>{e}</Tag>)}
-                        </div>
-                        <input style={{display:'block'}} type="text" value={this.state.tagInput} onChange={(e)=>{this.setState({tagInput:e.currentTarget.value})}} placeholder='Enter Tag'/>
+                        <div className='tagsContainer'>{tag.map((e,i)=><Tag closable key={i}>{e}</Tag>)}</div>
+                        <input onKeyDown={(e)=>{if (e.key == "Enter") this.handleTagSubmit()}} style={{display:'block'}} type="text" value={this.state.tagInput} onChange={(e)=>{this.setState({tagInput:e.currentTarget.value})}} placeholder='Enter Tag'/>
                         <div className='errorFound'>{errorTag}</div>
                         <Button style={{display:'block'}} onClick={()=>this.handleTagSubmit()} type='primary'>Add Tag</Button>
                     </div>
@@ -167,9 +178,7 @@ class ActivityClass extends Component {
                     </div>
                     <div className="activityFormButtons">
                         <Button type='primary' onClick={()=>this.handleSubmit()}>Submit</Button>
-                        {
-                            this.props.params.id !== 'new'&&<Popconfirm onConfirm={(e)=>this.handleDelete(e)} title='Delete this Activity' description="Are you sure to delete this task?" okText="Yes" cancelText="No"><button className='delete'>Delete</button></Popconfirm>
-                        }
+                        {this.props.params.id !== 'new'&&<Popconfirm onConfirm={(e)=>this.handleDelete(e)} title='Delete this Activity' description="Are you sure to delete this task?" okText="Yes" cancelText="No"><button className='delete'>Delete</button></Popconfirm>}
                     </div>
                 </div>
                 </form>
